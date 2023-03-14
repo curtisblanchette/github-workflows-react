@@ -4,29 +4,31 @@ on:
   push:
     branches: [ master ]
 
-  strategy:
-    matrix:
-      os: [ ubuntu-20.04 ]
-      node-version: [ 16.x ]
+jobs:
+  integration:
+    strategy:
+      matrix:
+        os: [ ubuntu-20.04 ]
+        node-version: [ 16.x ]
 
-  runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
-  steps:
+    steps:
 
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version
+      - name: use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version
 
-    - name: Install NPM Modules
-      run: npm install
+      - name: Install NPM Modules
+        run: npm install
 
-    - name: Test react app
-      run: npm run test
+      - name: Test react app
+        run: npm run test
 
-    - name: Build distribution
-      run: npm run build
+      - name: Build distribution
+        run: npm run build
 
