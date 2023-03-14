@@ -9,21 +9,24 @@ on:
       os: [ ubuntu-20.04 ]
       node-version: [ 16.x ]
 
-    steps:
+  runs-on: ${{ matrix.os }}
 
-      - name: Checkout
-        uses: actions/checkout@v3
+  steps:
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
+    - name: Checkout
+      uses: actions/checkout@v3
 
-      - name: Install NPM Modules
-        run: npm install
+    - name: use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version
 
-      - name: Test react app
-        run: npm run test
+    - name: Install NPM Modules
+      run: npm install
 
-      - name: Build distribution
-        run: npm run build
+    - name: Test react app
+      run: npm run test
+
+    - name: Build distribution
+      run: npm run build
+
